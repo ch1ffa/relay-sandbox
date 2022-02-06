@@ -7,7 +7,7 @@ import {
 } from "relay-runtime";
 import { AddTodoInput } from "./__generated__/useAddTodoMutation.graphql";
 
-const graphql = require("babel-plugin-relay/macro");
+import graphql from "babel-plugin-relay/macro";
 
 const mutation = graphql`
   mutation useAddTodoMutation($input: AddTodoInput!) {

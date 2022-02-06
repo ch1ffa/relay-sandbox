@@ -2,7 +2,7 @@ import React, { useCallback } from "react";
 import { useFragment } from "react-relay";
 import { TodoListFooter_user$key } from "./__generated__/TodoListFooter_user.graphql";
 import useClearCompleteTodosMutation from "./useClearCompleteTodosMutation";
-const graphql = require("babel-plugin-relay/macro");
+import graphql from "babel-plugin-relay/macro";
 
 interface Props {
   user: TodoListFooter_user$key;

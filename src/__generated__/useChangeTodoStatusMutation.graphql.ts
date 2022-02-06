@@ -1,52 +1,41 @@
+/**
+ * @generated SignedSource<<ae5b7fe6470a1d0bb3d819bb69cb5f31>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type ChangeTodoStatusInput = {
-    complete: boolean;
-    id: string;
-    userId: string;
-    clientMutationId?: string | null;
+  complete: boolean;
+  id: string;
+  userId: string;
+  clientMutationId?: string | null;
 };
-export type useChangeTodoStatusMutationVariables = {
-    input: ChangeTodoStatusInput;
+export type useChangeTodoStatusMutation$variables = {
+  input: ChangeTodoStatusInput;
 };
-export type useChangeTodoStatusMutationResponse = {
-    readonly changeTodoStatus: {
-        readonly todo: {
-            readonly id: string;
-            readonly complete: boolean;
-        };
-        readonly user: {
-            readonly id: string;
-            readonly completedCount: number;
-        };
-    } | null;
+export type useChangeTodoStatusMutationVariables = useChangeTodoStatusMutation$variables;
+export type useChangeTodoStatusMutation$data = {
+  readonly changeTodoStatus: {
+    readonly todo: {
+      readonly id: string;
+      readonly complete: boolean;
+    };
+    readonly user: {
+      readonly id: string;
+      readonly completedCount: number;
+    };
+  } | null;
 };
+export type useChangeTodoStatusMutationResponse = useChangeTodoStatusMutation$data;
 export type useChangeTodoStatusMutation = {
-    readonly response: useChangeTodoStatusMutationResponse;
-    readonly variables: useChangeTodoStatusMutationVariables;
+  variables: useChangeTodoStatusMutationVariables;
+  response: useChangeTodoStatusMutation$data;
 };
-
-
-
-/*
-mutation useChangeTodoStatusMutation(
-  $input: ChangeTodoStatusInput!
-) {
-  changeTodoStatus(input: $input) {
-    todo {
-      id
-      complete
-    }
-    user {
-      id
-      completedCount
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -147,5 +136,7 @@ return {
   }
 };
 })();
-(node as any).hash = '05f7e7aaf8ff89087a9891852c1efbac';
+
+(node as any).hash = "05f7e7aaf8ff89087a9891852c1efbac";
+
 export default node;

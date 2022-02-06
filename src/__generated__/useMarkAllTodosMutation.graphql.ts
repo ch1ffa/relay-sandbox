@@ -1,51 +1,40 @@
+/**
+ * @generated SignedSource<<098e82ff43ee871fd521732d6cba069a>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type MarkAllTodosInput = {
-    complete: boolean;
-    userId: string;
-    clientMutationId?: string | null;
+  complete: boolean;
+  userId: string;
+  clientMutationId?: string | null;
 };
-export type useMarkAllTodosMutationVariables = {
-    input: MarkAllTodosInput;
+export type useMarkAllTodosMutation$variables = {
+  input: MarkAllTodosInput;
 };
-export type useMarkAllTodosMutationResponse = {
-    readonly markAllTodos: {
-        readonly changedTodos: ReadonlyArray<{
-            readonly id: string;
-            readonly complete: boolean;
-        }> | null;
-        readonly user: {
-            readonly id: string;
-            readonly completedCount: number;
-        };
-    } | null;
+export type useMarkAllTodosMutationVariables = useMarkAllTodosMutation$variables;
+export type useMarkAllTodosMutation$data = {
+  readonly markAllTodos: {
+    readonly changedTodos: ReadonlyArray<{
+      readonly id: string;
+      readonly complete: boolean;
+    }> | null;
+    readonly user: {
+      readonly id: string;
+      readonly completedCount: number;
+    };
+  } | null;
 };
+export type useMarkAllTodosMutationResponse = useMarkAllTodosMutation$data;
 export type useMarkAllTodosMutation = {
-    readonly response: useMarkAllTodosMutationResponse;
-    readonly variables: useMarkAllTodosMutationVariables;
+  variables: useMarkAllTodosMutationVariables;
+  response: useMarkAllTodosMutation$data;
 };
-
-
-
-/*
-mutation useMarkAllTodosMutation(
-  $input: MarkAllTodosInput!
-) {
-  markAllTodos(input: $input) {
-    changedTodos {
-      id
-      complete
-    }
-    user {
-      id
-      completedCount
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -146,5 +135,7 @@ return {
   }
 };
 })();
-(node as any).hash = 'eddc4bb1aa1696647a8196366028df69';
+
+(node as any).hash = "eddc4bb1aa1696647a8196366028df69";
+
 export default node;

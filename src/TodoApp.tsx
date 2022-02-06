@@ -7,7 +7,7 @@ import TodoList from "./TodoList";
 import TodoListFooter from "./TodoListFooter";
 import useAddTodoMutation from "./useAddTodoMutation";
 
-const graphql = require("babel-plugin-relay/macro");
+import graphql from "babel-plugin-relay/macro";
 
 interface Props {
   initialQueryRef: PreloadedQuery<TodoAppQuery.TodoAppQuery>;

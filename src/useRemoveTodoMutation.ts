@@ -3,7 +3,7 @@ import { useCallback } from "react";
 import { ConnectionHandler, RecordSourceSelectorProxy } from "relay-runtime";
 import { RemoveTodoInput } from "./__generated__/useRemoveTodoMutation.graphql";
 
-const graphql = require("babel-plugin-relay/macro");
+import graphql from "babel-plugin-relay/macro";
 
 const mutation = graphql`
   mutation useRemoveTodoMutation($input: RemoveTodoInput!) {

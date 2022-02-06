@@ -1,45 +1,36 @@
+/**
+ * @generated SignedSource<<381d77e68f981223fc12a755cf9f9f74>>
+ * @lightSyntaxTransform
+ * @nogrep
+ */
+
 /* tslint:disable */
 /* eslint-disable */
 // @ts-nocheck
 
-import { ConcreteRequest } from "relay-runtime";
+import { ConcreteRequest, Mutation } from 'relay-runtime';
 export type RemoveCompletedTodosInput = {
-    userId: string;
-    clientMutationId?: string | null;
+  userId: string;
+  clientMutationId?: string | null;
 };
-export type useClearCompleteTodosMutationVariables = {
-    input: RemoveCompletedTodosInput;
+export type useClearCompleteTodosMutation$variables = {
+  input: RemoveCompletedTodosInput;
 };
-export type useClearCompleteTodosMutationResponse = {
-    readonly removeCompletedTodos: {
-        readonly deletedTodoIds: ReadonlyArray<string> | null;
-        readonly user: {
-            readonly completedCount: number;
-            readonly totalCount: number;
-        };
-    } | null;
+export type useClearCompleteTodosMutationVariables = useClearCompleteTodosMutation$variables;
+export type useClearCompleteTodosMutation$data = {
+  readonly removeCompletedTodos: {
+    readonly deletedTodoIds: ReadonlyArray<string> | null;
+    readonly user: {
+      readonly completedCount: number;
+      readonly totalCount: number;
+    };
+  } | null;
 };
+export type useClearCompleteTodosMutationResponse = useClearCompleteTodosMutation$data;
 export type useClearCompleteTodosMutation = {
-    readonly response: useClearCompleteTodosMutationResponse;
-    readonly variables: useClearCompleteTodosMutationVariables;
+  variables: useClearCompleteTodosMutationVariables;
+  response: useClearCompleteTodosMutation$data;
 };
-
-
-
-/*
-mutation useClearCompleteTodosMutation(
-  $input: RemoveCompletedTodosInput!
-) {
-  removeCompletedTodos(input: $input) {
-    deletedTodoIds
-    user {
-      completedCount
-      totalCount
-      id
-    }
-  }
-}
-*/
 
 const node: ConcreteRequest = (function(){
 var v0 = [
@@ -163,5 +154,7 @@ return {
   }
 };
 })();
-(node as any).hash = '108eada9e88d6bded77850429cae6cd1';
+
+(node as any).hash = "108eada9e88d6bded77850429cae6cd1";
+
 export default node;

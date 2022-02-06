@@ -7,7 +7,7 @@ import { Todo_todo$key } from "./__generated__/Todo_todo.graphql";
 import useChangeTodoStatusMutation from "./useChangeTodoStatusMutation";
 import useRemoveTodoMutation from "./useRemoveTodoMutation";
 import useRenameTodoMutation from "./useRenameTodoMutation";
-const graphql = require("babel-plugin-relay/macro");
+import graphql from "babel-plugin-relay/macro";
 
 interface Props {
   user: Todo_user$key;

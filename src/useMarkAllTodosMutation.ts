@@ -5,7 +5,7 @@ import {
   MarkAllTodosInput
 } from "./__generated__/useMarkAllTodosMutation.graphql";
 
-const graphql = require("babel-plugin-relay/macro");
+import graphql from "babel-plugin-relay/macro";
 
 const mutation = graphql`
   mutation useMarkAllTodosMutation($input: MarkAllTodosInput!) {

@@ -3,7 +3,7 @@ import { useFragment } from "react-relay";
 import Todo from "./Todo";
 import { TodoList_user$key } from "./__generated__/TodoList_user.graphql";
 import useMarkAllTodosMutation from "./useMarkAllTodosMutation";
-const graphql = require("babel-plugin-relay/macro");
+import graphql from "babel-plugin-relay/macro";
 
 interface Props {
   user: TodoList_user$key;

@@ -5,7 +5,7 @@ import {
   ChangeTodoStatusInput
 } from "./__generated__/useChangeTodoStatusMutation.graphql";
 
-const graphql = require("babel-plugin-relay/macro");
+import graphql from "babel-plugin-relay/macro";
 
 const mutation = graphql`
   mutation useChangeTodoStatusMutation($input: ChangeTodoStatusInput!) {

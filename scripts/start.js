@@ -1,40 +1,40 @@
-"use strict";
+'use strict';
 
 // Do this as the first thing so that any code reading it knows the right env.
-process.env.BABEL_ENV = "development";
-process.env.NODE_ENV = "development";
+process.env.BABEL_ENV = 'development';
+process.env.NODE_ENV = 'development';
 
 // Makes the script crash on unhandled rejections instead of silently
 // ignoring them. In the future, promise rejections that are not handled will
 // terminate the Node.js process with a non-zero exit code.
-process.on("unhandledRejection", err => {
+process.on('unhandledRejection', err => {
   throw err;
 });
 
 // Ensure environment variables are read.
-require("../config/env");
+require('../config/env');
 
-const expressGraphQL = require("express-graphql");
-const fs = require("fs");
-const chalk = require("react-dev-utils/chalk");
-const webpack = require("webpack");
-const WebpackDevServer = require("webpack-dev-server");
-const clearConsole = require("react-dev-utils/clearConsole");
-const checkRequiredFiles = require("react-dev-utils/checkRequiredFiles");
+const expressGraphQL = require('express-graphql');
+const fs = require('fs');
+const chalk = require('react-dev-utils/chalk');
+const webpack = require('webpack');
+const WebpackDevServer = require('webpack-dev-server');
+const clearConsole = require('react-dev-utils/clearConsole');
+const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles');
 const {
   choosePort,
   createCompiler,
   prepareProxy,
-  prepareUrls
-} = require("react-dev-utils/WebpackDevServerUtils");
-const openBrowser = require("react-dev-utils/openBrowser");
+  prepareUrls,
+} = require('react-dev-utils/WebpackDevServerUtils');
+const openBrowser = require('react-dev-utils/openBrowser');
 const { schema } = require("../server/schema");
-const semver = require("semver");
-const paths = require("../config/paths");
-const configFactory = require("../config/webpack.config");
-const createDevServerConfig = require("../config/webpackDevServer.config");
-const getClientEnvironment = require("../config/env");
-const react = require(require.resolve("react", { paths: [paths.appPath] }));
+const semver = require('semver');
+const paths = require('../config/paths');
+const configFactory = require('../config/webpack.config');
+const createDevServerConfig = require('../config/webpackDevServer.config');
+const getClientEnvironment = require('../config/env');
+const react = require(require.resolve('react', { paths: [paths.appPath] }));
 
 const env = getClientEnvironment(paths.publicUrlOrPath.slice(0, -1));
 const useYarn = fs.existsSync(paths.yarnLockFile);
@@ -47,7 +47,7 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 
 // Tools like Cloud9 rely on this.
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
-const HOST = process.env.HOST || "0.0.0.0";
+const HOST = process.env.HOST || '0.0.0.0';
 
 if (process.env.HOST) {
   console.log(
@@ -61,14 +61,14 @@ if (process.env.HOST) {
     `If this was unintentional, check that you haven't mistakenly set it in your shell.`
   );
   console.log(
-    `Learn more here: ${chalk.yellow("https://cra.link/advanced-config")}`
+    `Learn more here: ${chalk.yellow('https://cra.link/advanced-config')}`
   );
   console.log();
 }
 
 // We require that you explicitly set browsers and do not fall back to
 // browserslist defaults.
-const { checkBrowsers } = require("react-dev-utils/browsersHelper");
+const { checkBrowsers } = require('react-dev-utils/browsersHelper');
 checkBrowsers(paths.appPath, isInteractive)
   .then(() => {
     // We attempt to use the default port but if it is busy, we offer the user to
@@ -81,33 +81,25 @@ checkBrowsers(paths.appPath, isInteractive)
       return;
     }
 
-    const config = configFactory("development");
-    const protocol = process.env.HTTPS === "true" ? "https" : "http";
+    const config = configFactory('development');
+    const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
     const appName = require(paths.appPackageJson).name;
 
     const useTypeScript = fs.existsSync(paths.appTsConfig);
-    const tscCompileOnError = process.env.TSC_COMPILE_ON_ERROR === "true";
     const urls = prepareUrls(
       protocol,
       HOST,
       port,
       paths.publicUrlOrPath.slice(0, -1)
     );
-    const devSocket = {
-      warnings: warnings =>
-        devServer.sockWrite(devServer.sockets, "warnings", warnings),
-      errors: errors => devServer.sockWrite(devServer.sockets, "errors", errors)
-    };
     // Create a webpack compiler that is configured with custom messages.
     const compiler = createCompiler({
       appName,
       config,
-      devSocket,
       urls,
       useYarn,
       useTypeScript,
-      tscCompileOnError,
-      webpack
+      webpack,
     });
     // Load proxy config
     const proxySetting = require(paths.appPackageJson).proxy;
@@ -117,29 +109,34 @@ checkBrowsers(paths.appPath, isInteractive)
       paths.publicUrlOrPath
     );
     // Serve webpack assets generated by the compiler over a web server.
-    const serverConfig = createDevServerConfig(
-      proxyConfig,
-      urls.lanUrlForConfig
-    );
-    const devServer = new WebpackDevServer(compiler, serverConfig);
-    devServer.use(
-      "/graphql",
-      expressGraphQL.graphqlHTTP({
-        schema: schema,
-        pretty: true
-      })
-    );
-
+    const serverConfig = {
+      ...createDevServerConfig(proxyConfig, urls.lanUrlForConfig),
+      host: HOST,
+      port,
+      setupMiddlewares: (middlewares, devServer) => {
+        if (!devServer) {
+          throw new Error('webpack-dev-server is not defined');
+        }
+  
+        devServer.app.use(
+          "/graphql",
+          expressGraphQL.graphqlHTTP({
+            schema: schema,
+            pretty: true
+          })
+        );
+  
+        return middlewares;
+      },
+    };
+    const devServer = new WebpackDevServer(serverConfig, compiler);
     // Launch WebpackDevServer.
-    devServer.listen(port, HOST, err => {
-      if (err) {
-        return console.log(err);
-      }
+    devServer.startCallback(() => {
       if (isInteractive) {
         clearConsole();
       }
 
-      if (env.raw.FAST_REFRESH && semver.lt(react.version, "16.10.0")) {
+      if (env.raw.FAST_REFRESH && semver.lt(react.version, '16.10.0')) {
         console.log(
           chalk.yellow(
             `Fast Refresh requires React 16.10 or higher. You are using React ${react.version}.`
@@ -147,20 +144,20 @@ checkBrowsers(paths.appPath, isInteractive)
         );
       }
 
-      console.log(chalk.cyan("Starting the development server...\n"));
+      console.log(chalk.cyan('Starting the development server...\n'));
       openBrowser(urls.localUrlForBrowser);
     });
 
-    ["SIGINT", "SIGTERM"].forEach(function (sig) {
+    ['SIGINT', 'SIGTERM'].forEach(function (sig) {
       process.on(sig, function () {
         devServer.close();
         process.exit();
       });
     });
 
-    if (process.env.CI !== "true") {
+    if (process.env.CI !== 'true') {
       // Gracefully exit when stdin ends
-      process.stdin.on("end", function () {
+      process.stdin.on('end', function () {
         devServer.close();
         process.exit();
       });

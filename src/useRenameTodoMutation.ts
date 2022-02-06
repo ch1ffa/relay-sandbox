@@ -5,7 +5,7 @@ import {
   RenameTodoInput
 } from "./__generated__/useRenameTodoMutation.graphql";
 
-const graphql = require("babel-plugin-relay/macro");
+import graphql from "babel-plugin-relay/macro";
 
 const mutation = graphql`
   mutation useRenameTodoMutation($input: RenameTodoInput!) {
